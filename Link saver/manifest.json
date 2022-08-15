@@ -1,0 +1,14 @@
+{
+   "name":"link saver",
+   "short_name":"linksaver",
+   "manifest_version":3,
+   "version":"1.0",
+   "action":{
+    "default_popup":"index.html",
+    "default_icon":"download.png"
+   },
+   "permissions":[
+      "tabs"
+   ]
+}
+
