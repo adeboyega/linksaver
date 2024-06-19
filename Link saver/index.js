@@ -1,45 +1,38 @@
-const button = document.querySelector("#input-btn")
-const ulel = document.getElementById('list')
-let myLeads = []
-let inputEl = document.querySelector("#input-el") 
-const leadsformlocalstoage = JSON.parse(localStorage.getItem("myLeads"))
-const deletebut = document.querySelector("#deletebut")
-let tabBtn = document.querySelector("#tabbut")
+const button = document.querySelector("#input-btn");
+const ulel = document.getElementById('list');
+let myLeads = [];
+let inputEl = document.querySelector("#input-el");
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
+const deleteBut = document.querySelector("#deletebut");
+let tabBtn = document.querySelector("#tabbut");
 
-//the tab button and its function
-tabBtn.addEventListener("click",function(){
-    chrome.tabs.query({active: true, currentWindow:true}, function(tabs){
-        myLeads.push(tabs[0].url)
-        localStorage.setItem("myLeads",JSON.stringify(myLeads))
-        render(myLeads)
+// Function to handle the tab button click
+tabBtn.addEventListener("click", function() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        myLeads.push(tabs[0].url);
+        localStorage.setItem("myLeads", JSON.stringify(myLeads));
+        render(myLeads);
+    });
+});
 
-   
-    })
-    
-    /*myLeads.push(tabs[0].url)
-    localStorage.setItem("myLeads",JSON.stringify(myLeads))
-    render(myLeads)*/
-})
+// Function to handle the input button click
+button.addEventListener("click", function() {
+    if (inputEl.value.trim() !== "") { // Ensure input is not empty
+        myLeads.push(inputEl.value);
+        localStorage.setItem("myLeads", JSON.stringify(myLeads));
+        inputEl.value = ""; // Clear input field
+        render(myLeads);
+    }
+});
 
-console.log(leadsformlocalstoage)
-
-//the inputbutton and its function
-button.addEventListener("click",function(){
-    myLeads.push(inputEl.value)
-    localStorage.setItem("myLeads",JSON.stringify(myLeads))
-    inputEl.value = " "
-    
-    render(myLeads)
-    console.log(localStorage.getItem("myLeads"))
-
-})
+// Function to delete a lead by index
 function deleteLead(index) {
     myLeads.splice(index, 1); // Remove the item from the array
     localStorage.setItem("myLeads", JSON.stringify(myLeads)); // Update localStorage
     render(myLeads); // Re-render the list
 }
 
-//the loop and dom of or strings and links
+// Function to render the list of leads
 let render = (leads) => {
     let listItems = "";
     for (let i = 0; i < leads.length; i++) {
@@ -48,18 +41,15 @@ let render = (leads) => {
     ulel.innerHTML = listItems;
 };
 
-if (leadsformlocalstoage){
-    myLeads = leadsformlocalstoage
-    render(myLeads)
+// Initialize with leads from localStorage if available
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage;
+    render(myLeads);
 }
 
-//the delete button and its function 
-deletebut.addEventListener("click",function(){
-    localStorage.clear("myLeads")
-    ulel.innerHTML = " "
-    myLeads = [ ]
-    // console.log("clicked")
-})
-
-
-
+// Functionality for the delete button to clear all leads
+deleteBut.addEventListener("click", function() {
+    localStorage.removeItem("myLeads");
+    ulel.innerHTML = ""; // Clear the list visually
+    myLeads = [];
+});
