@@ -3,6 +3,7 @@ body{
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
     min-width: 400px;
+    padding: 10px;
 }
 #deletebut{
     background: white;
@@ -20,7 +21,9 @@ button{
     border: 1px solid #5f9341;
     color: white;
     padding: 10px 20px;
-    font-weight: bold
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
     
 }
 ul{
@@ -33,6 +36,11 @@ li{
     text-decoration: none;
     color: #5f9341;
     margin-top: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
 }
 a{
     text-decoration: none;

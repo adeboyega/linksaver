@@ -58,7 +58,7 @@ deletebut.addEventListener("click",function(){
     localStorage.clear("myLeads")
     ulel.innerHTML = " "
     myLeads = [ ]
-    console.log("clicked")
+    // console.log("clicked")
 })
 
 
