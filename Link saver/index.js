@@ -33,15 +33,21 @@ button.addEventListener("click",function(){
     console.log(localStorage.getItem("myLeads"))
 
 })
+function deleteLead(index) {
+    myLeads.splice(index, 1); // Remove the item from the array
+    localStorage.setItem("myLeads", JSON.stringify(myLeads)); // Update localStorage
+    render(myLeads); // Re-render the list
+}
 
 //the loop and dom of or strings and links
-let render=(leads)=>{
-    let listitems = ""
-    for(let i = 0; i<leads.length; i++){
-        listitems += `<a target='_blank' href = ${leads[i]}> <li> ${leads[i]}</li></a> `
+let render = (leads) => {
+    let listItems = "";
+    for (let i = 0; i < leads.length; i++) {
+        listItems += `<li><a target='_blank' href="${leads[i]}">${leads[i]}</a> <button onclick="deleteLead(${i})">Delete</button></li>`;
     }
-    ulel.innerHTML = listitems
-}
+    ulel.innerHTML = listItems;
+};
+
 if (leadsformlocalstoage){
     myLeads = leadsformlocalstoage
     render(myLeads)
